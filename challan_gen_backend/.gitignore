@@ -1,0 +1,80 @@
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+*.env
+.env/
+.envs/
+
+# =========================
+# Python cache & compiled files
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# =========================
+# Virtual environments
+# =========================
+venv/
+.env_venv/
+.venv/
+virtualenv/
+ENV/
+
+# =========================
+# FastAPI / Uvicorn
+# =========================
+*.log
+logs/
+*.pid
+
+# =========================
+# Python build artifacts
+# =========================
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# =========================
+# Testing / Coverage
+# =========================
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+coverage.xml
+
+# =========================
+# Jupyter / IPython
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# IDE / Editor files
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# SQLite / Local DBs
+# =========================
+*.sqlite3
+*.db
+
+# =========================
+# Temporary files
+# =========================
+tmp/
+temp/
+.cache/
