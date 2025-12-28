@@ -1,20 +1,20 @@
-import { Menu, X, Upload, Send, FileText, BookOpen, GraduationCap, Bell } from 'lucide-react';
+import React from 'react';
+import { ShieldCheck } from 'lucide-react';
 
-
-// Footer Component
 const Footer = () => {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 mt-auto">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <footer className="bg-white py-12 border-t border-gray-100">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-gray-500 font-bold text-sm">
           <div className="flex items-center gap-2">
-            <GraduationCap className="h-5 w-5 text-gray-600" />
-            <span className="text-sm text-gray-600">© 2024 University Portal</span>
+            <ShieldCheck className="h-5 w-5 text-[#1a7a83]" />
+            <span>© {new Date().getFullYear()} UNI-EMAIL. All rights reserved.</span>
           </div>
-          <div className="flex gap-6 text-sm text-gray-500">
-            <a href="#" className="hover:text-gray-700">Help</a>
-            <a href="#" className="hover:text-gray-700">Privacy</a>
-            <a href="#" className="hover:text-gray-700">Terms</a>
+          
+          <div className="flex gap-8">
+            <a href="#" className="hover:text-[#1a7a83]">Terms of Service</a>
+            <a href="#" className="hover:text-[#1a7a83]">Privacy Policy</a>
+            <a href="#" className="hover:text-[#1a7a83]">Contact</a>
           </div>
         </div>
       </div>

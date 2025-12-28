@@ -4,6 +4,7 @@ import { GraduationCap, Eye, EyeOff } from 'lucide-react';
 import axiosClient from '../api/axiosClient';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import styled from 'styled-components';
 
 const SignUpPage = ({ onLogin }) => {
   const [formData, setFormData] = useState({
@@ -71,7 +72,7 @@ const SignUpPage = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
+    <StyledWrapper>
       <ToastContainer 
         position="top-right"
         autoClose={3000}
@@ -82,114 +83,325 @@ const SignUpPage = ({ onLogin }) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
       />
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <GraduationCap className="h-8 w-8 text-gray-800 mx-auto mb-3" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-1">Create account</h2>
-          <p className="text-sm text-gray-600">Start managing student forms</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Full name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
-              placeholder="John Doe"
-              required
-            />
+      <div className="container">
+        <div className="signup-box">
+          <div className="header">
+            <GraduationCap className="icon" />
+            <h2>Create account</h2>
+            <p className="subtitle">Start managing student forms</p>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
-              placeholder="name@university.edu"
-              required
-            />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="input-box">
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+              <label className={formData.name ? 'filled' : ''}>Full name</label>
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
-            <div className="relative">
+            <div className="input-box">
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              <label className={formData.email ? 'filled' : ''}>Email</label>
+            </div>
+
+            <div className="input-box">
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
-                placeholder="Create a password"
                 required
               />
+              <label className={formData.password ? 'filled' : ''}>Password</label>
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                className="eye-button"
               >
                 {showPassword ? (
-                  <EyeOff className="h-4 w-4" />
+                  <EyeOff className="eye-icon" />
                 ) : (
-                  <Eye className="h-4 w-4" />
+                  <Eye className="eye-icon" />
                 )}
               </button>
             </div>
-          </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Confirm password</label>
-            <div className="relative">
+            <div className="input-box">
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
-                placeholder="Confirm your password"
                 required
               />
+              <label className={formData.confirmPassword ? 'filled' : ''}>Confirm password</label>
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                className="eye-button"
               >
                 {showConfirmPassword ? (
-                  <EyeOff className="h-4 w-4" />
+                  <EyeOff className="eye-icon" />
                 ) : (
-                  <Eye className="h-4 w-4" />
+                  <Eye className="eye-icon" />
                 )}
               </button>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            className="w-full py-2 bg-gray-900 text-white rounded text-sm font-medium hover:bg-gray-800 transition-colors"
-          >
-            Create account
-          </button>
+            <button className="btn" type="submit">
+              Create account
+            </button>
 
-          <div className="text-center pt-2">
-            <span className="text-sm text-gray-600">Already have an account? </span>
-            <Link
-              to="/login"
-              className="text-sm text-gray-900 font-medium hover:underline"
-            >
-              Sign in
-            </Link>
-          </div>
-        </form>
+            <div className="signin-link">
+              <span>Already have an account? </span>
+              <Link to="/login">Sign in</Link>
+            </div>
+          </form>
+        </div>
+
+        {[...Array(50)].map((_, i) => (
+          <span key={i} style={{ '--i': i }} />
+        ))}
       </div>
-    </div>
+    </StyledWrapper>
   );
 };
+
+const StyledWrapper = styled.div`
+  min-height: 100vh;
+  background: #1f293a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+
+  .container {
+    position: relative;
+    width: 450px;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    overflow: visible;
+  }
+
+  .container span {
+    position: absolute;
+    left: 0;
+    width: 32px;
+    height: 6px;
+    background: #2c4766;
+    border-radius: 80px;
+    transform-origin: 225px;
+    transform: rotate(calc(var(--i) * (360deg / 50)));
+    animation: blink 3s linear infinite;
+    animation-delay: calc(var(--i) * (3s / 50));
+  }
+
+  @keyframes blink {
+    0% {
+      background: #0ef;
+    }
+    25% {
+      background: #2c4766;
+    }
+  }
+
+  .signup-box {
+    position: absolute;
+    width: 90%;
+    max-width: 360px;
+    z-index: 1;
+    padding: 30px 20px;
+    border-radius: 20px;
+    background: rgba(31, 41, 58, 0.8);
+    backdrop-filter: blur(10px);
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .icon {
+    height: 32px;
+    width: 32px;
+    color: #0ef;
+    margin: 0 auto 12px;
+  }
+
+  h2 {
+    font-size: 1.8em;
+    color: #0ef;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 0.85em;
+    color: #fff;
+    opacity: 0.7;
+  }
+
+  form {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .input-box {
+    position: relative;
+    margin: 18px 0;
+  }
+
+  input {
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 2px solid #2c4766;
+    outline: none;
+    border-radius: 40px;
+    font-size: 1em;
+    color: #fff;
+    padding: 0 15px;
+    transition: 0.5s ease;
+  }
+
+  input:focus {
+    border-color: #0ef;
+  }
+
+  input:not(:placeholder-shown) ~ label,
+  input:focus ~ label,
+  label.filled {
+    top: -10px;
+    font-size: 0.8em;
+    background: #1f293a;
+    padding: 0 6px;
+    color: #0ef;
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    pointer-events: none;
+    transition: 0.5s ease;
+    color: #fff;
+  }
+
+  .eye-button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+  }
+
+  .eye-button:hover {
+    color: #0ef;
+  }
+
+  .eye-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .btn {
+    width: 100%;
+    height: 45px;
+    background: #0ef;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #1f293a;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .btn:hover {
+    background: #0dd;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 238, 255, 0.3);
+  }
+
+  .signin-link {
+    margin: 15px 0 0;
+    text-align: center;
+  }
+
+  .signin-link span {
+    font-size: 0.9em;
+    color: #fff;
+    background: none;
+    width: auto;
+    height: auto;
+    position: static;
+    transform: none;
+    animation: none;
+  }
+
+  .signin-link a {
+    font-size: 0.9em;
+    color: #0ef;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  .signin-link a:hover {
+    color: #0dd;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      width: 380px;
+      height: 480px;
+    }
+
+    .container span {
+      transform-origin: 190px;
+    }
+
+    .signup-box {
+      max-width: 300px;
+      padding: 25px 15px;
+    }
+
+    .input-box {
+      margin: 15px 0;
+    }
+
+    h2 {
+      font-size: 1.6em;
+    }
+  }
+`;
 
 export default SignUpPage;

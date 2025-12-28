@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axiosClient from '../api/axiosClient';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import styled from 'styled-components';
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -83,7 +84,7 @@ const LoginPage = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gray-50 flex items-center justify-center px-4 py-8">
+    <StyledWrapper>
       <ToastContainer 
         position="top-right"
         autoClose={3000}
@@ -94,81 +95,301 @@ const LoginPage = ({ onLogin }) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
       />
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <GraduationCap className="h-8 w-8 text-gray-800 mx-auto mb-3" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-1">Sign in</h2>
-          <p className="text-sm text-gray-600">Enter your credentials to continue</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
-              placeholder="name@university.edu"
-              required
-              disabled={isLoading}
-            />
+      <div className="container">
+        <div className="login-box">
+          <div className="header">
+            <GraduationCap className="icon" />
+            <h2>Sign in</h2>
+            <p className="subtitle">Enter your credentials to continue</p>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Password
-            </label>
-            <div className="relative">
+          <form onSubmit={handleSubmit}>
+            <div className="input-box">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isLoading}
+              />
+              <label className={email ? 'filled' : ''}>Email</label>
+            </div>
+
+            <div className="input-box">
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
-                placeholder="Enter your password"
                 required
                 disabled={isLoading}
               />
+              <label className={password ? 'filled' : ''}>Password</label>
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                className="eye-button"
                 disabled={isLoading}
               >
                 {showPassword ? (
-                  <EyeOff className="h-4 w-4" />
+                  <EyeOff className="eye-icon" />
                 ) : (
-                  <Eye className="h-4 w-4" />
+                  <Eye className="eye-icon" />
                 )}
               </button>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full py-2 bg-gray-900 text-white rounded text-sm font-medium hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
-          >
-            {isLoading ? "Signing in..." : "Sign in"}
-          </button>
+            <button className="btn" type="submit" disabled={isLoading}>
+              {isLoading ? "Signing in..." : "Sign in"}
+            </button>
 
-          <div className="text-center pt-2">
-            <span className="text-sm text-gray-600">Don't have an account? </span>
-            <Link
-              to="/signup"
-              className="text-sm text-gray-900 font-medium hover:underline"
-            >
-              Sign up
-            </Link>
-          </div>
-        </form>
+            <div className="signup-link">
+              <span>Don't have an account? </span>
+              <Link to="/signup">Sign up</Link>
+            </div>
+          </form>
+        </div>
+
+        {[...Array(50)].map((_, i) => (
+          <span key={i} style={{ '--i': i }} />
+        ))}
       </div>
-    </div>
+    </StyledWrapper>
   );
 };
+
+const StyledWrapper = styled.div`
+  min-height: 100vh;
+  background: #1f293a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+
+  .container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    overflow: visible;
+  }
+
+  .container span {
+    position: absolute;
+    left: 0;
+    width: 32px;
+    height: 6px;
+    background: #2c4766;
+    border-radius: 80px;
+    transform-origin: 200px;
+    transform: rotate(calc(var(--i) * (360deg / 50)));
+    animation: blink 3s linear infinite;
+    animation-delay: calc(var(--i) * (3s / 50));
+  }
+
+  @keyframes blink {
+    0% {
+      background: #0ef;
+    }
+    25% {
+      background: #2c4766;
+    }
+  }
+
+  .login-box {
+    position: absolute;
+    width: 90%;
+    max-width: 320px;
+    z-index: 1;
+    padding: 30px 20px;
+    border-radius: 20px;
+    background: rgba(31, 41, 58, 0.8);
+    backdrop-filter: blur(10px);
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .icon {
+    height: 32px;
+    width: 32px;
+    color: #0ef;
+    margin: 0 auto 12px;
+  }
+
+  h2 {
+    font-size: 1.8em;
+    color: #0ef;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 0.85em;
+    color: #fff;
+    opacity: 0.7;
+  }
+
+  form {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .input-box {
+    position: relative;
+    margin: 20px 0;
+  }
+
+  input {
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 2px solid #2c4766;
+    outline: none;
+    border-radius: 40px;
+    font-size: 1em;
+    color: #fff;
+    padding: 0 15px;
+    transition: 0.5s ease;
+  }
+
+  input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  input:focus {
+    border-color: #0ef;
+  }
+
+  input:not(:placeholder-shown) ~ label,
+  input:focus ~ label,
+  label.filled {
+    top: -10px;
+    font-size: 0.8em;
+    background: #1f293a;
+    padding: 0 6px;
+    color: #0ef;
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    pointer-events: none;
+    transition: 0.5s ease;
+    color: #fff;
+  }
+
+  .eye-button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+  }
+
+  .eye-button:hover:not(:disabled) {
+    color: #0ef;
+  }
+
+  .eye-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .eye-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .btn {
+    width: 100%;
+    height: 45px;
+    background: #0ef;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #1f293a;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .btn:hover:not(:disabled) {
+    background: #0dd;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 238, 255, 0.3);
+  }
+
+  .btn:disabled {
+    background: #2c4766;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .signup-link {
+    margin: 15px 0 0;
+    text-align: center;
+  }
+
+  .signup-link span {
+    font-size: 0.9em;
+    color: #fff;
+    background: none;
+    width: auto;
+    height: auto;
+    position: static;
+    transform: none;
+    animation: none;
+  }
+
+  .signup-link a {
+    font-size: 0.9em;
+    color: #0ef;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  .signup-link a:hover {
+    color: #0dd;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      width: 350px;
+      height: 350px;
+    }
+
+    .container span {
+      transform-origin: 175px;
+    }
+
+    .login-box {
+      max-width: 280px;
+      padding: 25px 15px;
+    }
+  }
+`;
 
 export default LoginPage;

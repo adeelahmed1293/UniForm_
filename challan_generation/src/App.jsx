@@ -7,6 +7,7 @@ import Footer from './Components/Footer.jsx';
 import LandingPage from './Components/LandingPage.jsx';
 import LoginPage from './Components/LoginPage.jsx';
 import SignUpPage from './Components/SignUpPage.jsx';
+import HowItWorks from './Components/HowItWorks.jsx';
 import HomePage from './Components/Dashboard.jsx';
 import { isAuthenticated, initializeAuth, clearAuthData } from './api/auth.js';
 
@@ -33,53 +34,67 @@ export default function App() {
       <div className="app-container">
         <Navbar isAuthenticated={isAuthenticatedState} onLogout={handleLogout} />
         
-        <Routes>
-          <Route 
-            path="/" 
-            element={
-              isAuthenticatedState ? (
-                <Navigate to="/home" replace />
-              ) : (
-                <>
-                  <LandingPage />
-                  <Footer />
-                </>
-              )
-            } 
-          />
-          <Route 
-            path="/login" 
-            element={
-              isAuthenticatedState ? (
-                <Navigate to="/home" replace />
-              ) : (
-                <LoginPage onLogin={handleLogin} />
-              )
-            } 
-          />
-          <Route 
-            path="/signup" 
-            element={
-              isAuthenticatedState ? (
-                <Navigate to="/home" replace />
-              ) : (
-                <SignUpPage onLogin={handleLogin} />
-              )
-            } 
-          />
-          <Route 
-            path="/home" 
-            element={
-              isAuthenticatedState ? (
-                <HomePage onLogout={handleLogout} />
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            } 
-          />
-          {/* Redirect any unknown routes to landing page */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+     <Routes>
+  <Route 
+    path="/" 
+    element={
+      isAuthenticatedState ? (
+        <Navigate to="/home" replace />
+      ) : (
+        <>
+          <LandingPage />
+          <Footer />
+        </>
+      )
+    } 
+  />
+
+  <Route 
+    path="/how-it-works" 
+    element={
+      <>
+        <HowItWorks />
+        <Footer />
+      </>
+    }
+  />
+
+  <Route 
+    path="/login" 
+    element={
+      isAuthenticatedState ? (
+        <Navigate to="/home" replace />
+      ) : (
+        <LoginPage onLogin={handleLogin} />
+      )
+    } 
+  />
+
+  <Route 
+    path="/signup" 
+    element={
+      isAuthenticatedState ? (
+        <Navigate to="/home" replace />
+      ) : (
+        <SignUpPage onLogin={handleLogin} />
+      )
+    } 
+  />
+
+  <Route 
+    path="/home" 
+    element={
+      isAuthenticatedState ? (
+        <HomePage onLogout={handleLogout} />
+      ) : (
+        <Navigate to="/login" replace />
+      )
+    } 
+  />
+
+  <Route path="*" element={<Navigate to="/" replace />} />
+</Routes>
+
 
         {/* Global Toast Container */}
         <ToastContainer 
