@@ -291,10 +291,6 @@ npm run preview
 - Maintain consistent naming conventions
 - Add comments for complex logic
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🆘 Support
 
 For support and questions:
